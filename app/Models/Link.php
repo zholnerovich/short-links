@@ -27,7 +27,7 @@ class Link extends Model
      */
     public static function getLatestEntries():Collection
     {
-        return Link::latest()->limit(10)->get();
+        return Link::orderBy('id', 'desc')->limit(10)->get();
     }
 
     public static function  getUrlByShortPath(string $path) {
@@ -45,7 +45,7 @@ class Link extends Model
      */
     public function generatePath(): void
     {
-        $last = Link::latest()->first();
+        $last = Link::orderBy('id', 'desc')->first();
         if ($last) {
             $this->path = ++ $last->path;
         } else {
