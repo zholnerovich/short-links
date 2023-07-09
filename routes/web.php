@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\LinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LinkController::class, 'index']);
+Route::get('/{path}', [RedirectController::class, 'redirect'])->where('path', '[a-z]+');
+Route::get('/links/latest', [LinkController::class, 'latest']);
+Route::post('/links/store', [LinkController::class, 'store']);
+
